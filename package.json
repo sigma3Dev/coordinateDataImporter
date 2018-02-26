@@ -1,0 +1,17 @@
+{
+  "name": "coordinatedataimporter",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "\u0016https://github.com/sigma3Dev/coordinateDataImporter"
+  },
+  "author": "Tim Wörner",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {},
+  "description": ""
+}
