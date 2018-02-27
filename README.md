@@ -1,5 +1,11 @@
 # coordinateDataImporter
 
+## Installation
+
+```
+npm install --save coordinatedataimporter
+```
+
 ## Usage
 
 The module takes in a .txt file. 
@@ -18,3 +24,13 @@ The module then returns an array of objects. Each object describes the x, y and 
   { x: 5.5, y: 3.3, z: 7.7 },
   { x: 16.5, y: 44.3, z: 34.7 } ]
 ```
+
+## Tests
+
+```
+npm test
+```
+
+## Release History
+
+0.1.0 Initial release
