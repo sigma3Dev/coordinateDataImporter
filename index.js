@@ -1,23 +1,19 @@
 "use strict";
 
-module.exports = function coordinateDataImport(start, target) {
-  const fs = require('fs');
+module.exports = function coordinateDataImport(pointsFile) {
 
-  require.extensions['.txt'] = function (module, filename) {
-    module.exports = fs.readFileSync(filename, 'utf8');
-  };
+  var fs = require('fs');
+  
+  var lines = fs.readFileSync(pointsFile).toString().split(/\r?\n/);
+  
+  var result = lines.map(function(line) {
+    var coords = line.split(" ");
+    return ({
+      x: Number(coords[0]),
+      y: Number(coords[1]),
+      z: Number(coords[2]),
+    });
+  })
 
-  const startStr = require(start);
-  const targetStr = require(target);
-
-  const startArr = startStr.replace(/(\r\n|\n|\r)/gm," ").split(" ");
-  const targetArr = targetStr.replace(/(\r\n|\n|\r)/gm," ").split(" ");
-
-  const startArrNums = startArr.map(Number);
-  const targetArrNums = targetArr.map(Number);
-
-  return ({
-    start: startArrNums, 
-    target: targetArrNums
-  });
+  return result;
 }
