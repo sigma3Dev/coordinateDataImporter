@@ -1,16 +1,14 @@
 "use strict";
 
-module.exports = function coordinateDataImport(pointsFile) {
-  
+module.exports = function coordinateDataImport(pointsFile, callback) { 
   var reader = new FileReader();
   var blob = new Blob(pointsFile, { type: "text/plain" });
-  var result = [];
 
   reader.readAsText(blob);
   reader.onloadend = function(e) {
     var parsedBlob = reader.result;
     var lines = parsedBlob.toString().split(/\r?\n/);
-    result = lines.map(function(line) {
+    var lineMap = lines.map(function(line) {
       var coords = line.split(" ");
       return ({
         x: Number(coords[0]),
@@ -18,6 +16,6 @@ module.exports = function coordinateDataImport(pointsFile) {
         z: Number(coords[2]),
       });
     });
+    callback(lineMap);
   }
-  return result;
 }
