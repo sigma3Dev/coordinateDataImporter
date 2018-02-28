@@ -1,19 +1,22 @@
 "use strict";
 
 module.exports = function coordinateDataImport(pointsFile) {
-
-  var fs = require('fs');
   
-  var lines = fs.readFileSync(pointsFile).toString().split(/\r?\n/);
+  var reader = new FileReader();
+  var blob = new Blob(pointsFile, { type: "text/plain" });
   
-  var result = lines.map(function(line) {
-    var coords = line.split(" ");
-    return ({
-      x: Number(coords[0]),
-      y: Number(coords[1]),
-      z: Number(coords[2]),
+  reader.readAsText(blob);
+  reader.onloadend = function(e) {
+    var parsedBlob = reader.result;
+    var lines = parsedBlob.toString().split(/\r?\n/);
+    var result = lines.map(function(line) {
+        var coords = line.split(" ");
+        return ({
+          x: Number(coords[0]),
+          y: Number(coords[1]),
+          z: Number(coords[2]),
+        });
     });
-  })
-
   return result;
+  }
 }
