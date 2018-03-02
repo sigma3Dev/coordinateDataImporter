@@ -10,18 +10,15 @@ module.exports = function coordinateDataImport(pointsFile, callback) {
     var lines = parsedBlob.toString().split(/\r?\n/);
     var lineMap = lines.map(function(line, index) {
       var coords = line.split(" ");
-      var xId = 'x' + index;
-      var yId = 'y' + index;
-      var zId = 'z' + index;
-      return ({
+      var obj = {        
         x: Number(coords[0]),
         y: Number(coords[1]),
-        z: Number(coords[2]),
-        xId: true,
-        yId: true,
-        zId: true
-        
-      });
+        z: Number(coords[2])
+      };
+      obj['x' + index] = true;
+      obj['y' + index] = true;
+      obj['z' + index] = true;
+      return (obj);
     });
     callback(lineMap);
   }
