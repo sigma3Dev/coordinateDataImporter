@@ -1,48 +1,50 @@
-"use strict";
-
 module.exports = {
-  startCoordinateDataImport: function(pointsFile, callback) { 
-    var reader = new FileReader();
-    var blob = new Blob(pointsFile, { type: "text/plain" });
+  startCoordinateDataImport(pointsFile, callback) {
+    const reader = new FileReader();
+    const blob = new Blob(pointsFile, { type: 'text/plain' });
 
     reader.readAsText(blob);
-    reader.onloadend = function(e) {
-      var parsedBlob = reader.result;
-      var lines = parsedBlob.toString().split(/\r?\n/);
-      var lineMap = lines.map(function(line, index) {
-        var coords = line.split(" ");
-        var obj = {        
+    reader.onloadend = function (e) {
+      const parsedBlob = reader.result;
+      const lines = parsedBlob.toString().split(/\r?\n/);
+      const lineMap = lines.map((line, index) => {
+        const coords = line.replace(/\s\s+|\t/g, ' ').split(' ');
+        const obj = {
           x: Number(coords[0]),
           y: Number(coords[1]),
-          z: Number(coords[2])
+          z: Number(coords[2]),
         };
-        return (obj);
+        if (!Number.isNaN(obj.x) && !Number.isNaN(obj.y) && !Number.isNaN(obj.z)) {
+          return obj;
+        }
       });
-      callback(lineMap);
-    }
+      callback(lineMap.filter(line => line !== undefined));
+    };
   },
 
-  targetCoordinateDataImport: function(pointsFile, callback) { 
-    var reader = new FileReader();
-    var blob = new Blob(pointsFile, { type: "text/plain" });
+  targetCoordinateDataImport(pointsFile, callback) {
+    const reader = new FileReader();
+    const blob = new Blob(pointsFile, { type: 'text/plain' });
 
     reader.readAsText(blob);
-    reader.onloadend = function(e) {
-      var parsedBlob = reader.result;
-      var lines = parsedBlob.toString().split(/\r?\n/);
-      var lineMap = lines.map(function(line, index) {
-        var coords = line.split(" ");
-        var obj = {        
+    reader.onloadend = function (e) {
+      const parsedBlob = reader.result;
+      const lines = parsedBlob.toString().split(/\r?\n/);
+      const lineMap = lines.map((line, index) => {
+        const coords = line.replace(/\s\s+|\t/g, ' ').split(' ');
+        const obj = {
           x: Number(coords[0]),
           y: Number(coords[1]),
-          z: Number(coords[2])
+          z: Number(coords[2]),
+          useX: true,
+          useY: true,
+          useZ: true,
         };
-        obj.useX = true;
-        obj.useY = true;
-        obj.useZ = true;
-        return (obj);
+        if (!Number.isNaN(obj.x) && !Number.isNaN(obj.y) && !Number.isNaN(obj.z)) {
+          return obj;
+        }
       });
-      callback(lineMap);
-    }
-  }
-}
+      callback(lineMap.filter(line => line !== undefined));
+    };
+  },
+};
