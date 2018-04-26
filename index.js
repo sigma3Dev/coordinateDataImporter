@@ -1,15 +1,15 @@
 module.exports = {
   startCoordinateDataImport(pointsFile, callback) {
-    const reader = new FileReader();
-    const blob = new Blob(pointsFile, { type: 'text/plain' });
+    var reader = new FileReader();
+    var blob = new Blob(pointsFile, { type: 'text/plain' });
 
     reader.readAsText(blob);
     reader.onloadend = function (e) {
-      const parsedBlob = reader.result;
-      const lines = parsedBlob.toString().split(/\r?\n/);
-      const lineMap = lines.map((line, index) => {
-        const coords = line.replace(/\s\s+|\t/g, ' ').split(' ');
-        const obj = {
+      var parsedBlob = reader.result;
+      var lines = parsedBlob.toString().split(/\r?\n/);
+      var lineMap = lines.map(function (line, index) {
+        var coords = line.replace(/\s\s+|\t/g, ' ').split(' ');
+        var obj = {
           x: Number(coords[0]),
           y: Number(coords[1]),
           z: Number(coords[2]),
@@ -18,21 +18,21 @@ module.exports = {
           return obj;
         }
       });
-      callback(lineMap.filter(line => line !== undefined));
+      callback(lineMap.filter(function (line) { return line !== undefined }));
     };
   },
 
   targetCoordinateDataImport(pointsFile, callback) {
-    const reader = new FileReader();
-    const blob = new Blob(pointsFile, { type: 'text/plain' });
+    var reader = new FileReader();
+    var blob = new Blob(pointsFile, { type: 'text/plain' });
 
     reader.readAsText(blob);
     reader.onloadend = function (e) {
-      const parsedBlob = reader.result;
-      const lines = parsedBlob.toString().split(/\r?\n/);
-      const lineMap = lines.map((line, index) => {
-        const coords = line.replace(/\s\s+|\t/g, ' ').split(' ');
-        const obj = {
+      var parsedBlob = reader.result;
+      var lines = parsedBlob.toString().split(/\r?\n/);
+      var lineMap = lines.map(function (line, index) {
+        var coords = line.replace(/\s\s+|\t/g, ' ').split(' ');
+        var obj = {
           x: Number(coords[0]),
           y: Number(coords[1]),
           z: Number(coords[2]),
@@ -44,21 +44,21 @@ module.exports = {
           return obj;
         }
       });
-      callback(lineMap.filter(line => line !== undefined));
+      callback(lineMap.filter(function (line) { return line !== undefined }));
     };
   },
 
   bundleAdjustmentDataImport(pointsFile, callback) {
-    const reader = new FileReader();
-    const blob = new Blob(pointsFile, { type: 'text/plain' });
+    var reader = new FileReader();
+    var blob = new Blob(pointsFile, { type: 'text/plain' });
 
     reader.readAsText(blob);
     reader.onloadend = function (e) {
-      const parsedBlob = reader.result;
-      const lines = parsedBlob.toString().split(/\r?\n/);
-      const lineMap = lines.map((line, index) => {
-        const coords = line.replace(/\s\s+|\t/g, ' ').split(' ');
-        const obj = {
+      var parsedBlob = reader.result;
+      var lines = parsedBlob.toString().split(/\r?\n/);
+      var lineMap = lines.map(function (line, index) {
+        var coords = line.replace(/\s\s+|\t/g, ' ').split(' ');
+        var obj = {
           stationId: Number(coords[0]),
           geometryId: Number(coords[1]),
           x: Number(coords[2]),
@@ -70,7 +70,7 @@ module.exports = {
           return obj;
         }
       });
-      callback(lineMap.filter(line => line !== undefined));
+      callback(lineMap.filter(function (line) { return line !== undefined }));
     };
   },
 };
